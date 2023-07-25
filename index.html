@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en-US">
+    <head>
+        <meta charset="utf-8">
+        <title>Valigie Maker 9000</title>
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300&display=swap" rel="stylesheet"> 
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+
+        <style>
+            html, body, h1, h2, h3, h4, h5, h6 {
+                font-family: 'Josefin Sans', sans-serif;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="w3-container w3-yellow w3-border-bottom">
+            <h1>Valigie Maker 9000</h1>
+        </div>
+
+        <div class="w3-row" ng-app="ngMain" ng-controller="ngMainCtrl">
+
+            <!-- Left column -->
+            <div class="w3-container w3-col m6 w3-rightbar">
+                <h2 class="w3-center">All Lists</h2>
+
+                <!-- Search box -->
+                <div class="w3-card w3-row w3-padding-16">
+                    <div class="w3-col l6 w3-center">
+                        <div class="w3-container">
+                            <p>Search by tag</p>
+                            <input type="text" name="search-by-tag" ng-model="yolo" />
+                        </div>
+                    </div>
+                    <div class="w3-col l6 w3-center">
+                        <div class="w3-container">
+                            <p>Search by contents</p>
+                            <input type="text" name="search-by-contents" />
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Lists -->
+
+            </div>
+            
+            <!-- Right column -->
+            <div class="w3-container w3-col m6">
+                <h2 class="w3-center">My Valigia</h2>
+                
+                <div class="w3-row">
+
+                    <!-- One editable list -->
+                    <div class="w3-col m6 l4 w3-border w3-display-container" ng-repeat="valigia in my_valigie">
+                        <div class="w3-container w3-yellow">
+                            <h5 class="w3-left">{{valigia.name}}</h5>
+                            <a ng-hide="edit_list_$index" class="w3-right w3-display-hover w3-text-deep-orange" href="#" ng-click="edit_list_$index = !edit_list_$index">Edit</a>
+                            <a ng-show="edit_list_$index" class="w3-right w3-text-deep-orange" href="#" ng-click="edit_list_$index = !edit_list_$index">Accept</a>
+                        </div>
+                        <ul>
+                            <li ng-repeat="x in valigia.items">{{x}}</li>
+                        </ul>
+                        <button ng-show="edit_list_$index">Yolo</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+        <script>
+            var app = angular.module('ngMain', []);
+            app.controller('ngMainCtrl', function($scope) {
+                $scope.my_valigie = [
+                    { name: 'Montagna', items: ['yolo', 'swag', 'lol', 'kek', 'lmao', 'rofl', 'roflmao'] },
+                    { name: 'Mare', items: ['bny', 'gri', 'p po', 'grb'] }
+                ];
+            });
+        </script>
+    </body>
+</html> 
