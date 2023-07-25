@@ -29,14 +29,14 @@
                 <div class="w3-card w3-row w3-padding-16">
                     <div class="w3-col l6 w3-center">
                         <div class="w3-container">
-                            <p>Search by tag</p>
-                            <input type="text" name="search-by-tag" ng-model="yolo" />
+                            <label>Search by tag</label>
+                            <input type="text" class="w3-input" name="search-by-tag" ng-model="yolo" />
                         </div>
                     </div>
                     <div class="w3-col l6 w3-center">
                         <div class="w3-container">
-                            <p>Search by contents</p>
-                            <input type="text" name="search-by-contents" />
+                            <label>Search by contents</label>
+                            <input type="text" class="w3-input" name="search-by-contents" />
                         </div>
                     </div>
                 </div>
@@ -61,7 +61,16 @@
                         <ul>
                             <li ng-repeat="x in valigia.items">{{x}}</li>
                         </ul>
-                        <button ng-show="edit_list_$index">Yolo</button>
+
+                        <!-- Editing widget -->
+                        <div ng-show="edit_list_$index" class="w3-container w3-pale-yellow w3-row w3-padding-small">
+                            <div class="w3-col s8 w3-padding-small">
+                                <input type="text" class="w3-input w3-pale-yellow w3-padding-small" name="" id="">
+                            </div>
+                            <div class="w3-col s4 w3-padding-small">
+                                <input type="button" class="w3-button w3-hover-deep-orange w3-block w3-tiny w3-orange w3-padding-small" value="Add">
+                            </div>
+                        </div>
                     </div>
 
                 </div>
