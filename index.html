@@ -59,16 +59,19 @@
                             <a ng-show="edit_list_$index" class="w3-right w3-text-deep-orange" href="#" ng-click="edit_list_$index = !edit_list_$index">Accept</a>
                         </div>
                         <ul>
-                            <li ng-repeat="x in valigia.items">{{x}}</li>
+                            <li ng-repeat="x in valigia.items">
+                                <a ng-show="edit_list_$index" class="w3-text-deep-orange" href="#" ng-click="valigia.items.splice($index, 1)">[remove]</a>
+                                {{x}}
+                            </li>
                         </ul>
 
                         <!-- Editing widget -->
-                        <div ng-show="edit_list_$index" class="w3-container w3-pale-yellow w3-row w3-padding-small">
-                            <div class="w3-col s8 w3-padding-small">
-                                <input type="text" class="w3-input w3-pale-yellow w3-padding-small" name="" id="">
+                        <div ng-show="edit_list_$index" class="w3-container w3-pale-yellow w3-cell-row w3-padding-small">
+                            <div class="w3-cell w3-padding-small">
+                                <input type="text" class="w3-input w3-pale-yellow w3-padding-small" ng-model="new_for_valigia_$index" required>
                             </div>
-                            <div class="w3-col s4 w3-padding-small">
-                                <input type="button" class="w3-button w3-hover-deep-orange w3-block w3-tiny w3-orange w3-padding-small" value="Add">
+                            <div class="w3-cell w3-padding-small">
+                                <input type="button" class="w3-button w3-hover-deep-orange w3-block w3-tiny w3-orange w3-padding-small" value="Add" ng-click="valigia.items.push(new_for_valigia_$index);new_for_valigia_$index=''">
                             </div>
                         </div>
                     </div>
@@ -85,6 +88,10 @@
                     { name: 'Montagna', items: ['yolo', 'swag', 'lol', 'kek', 'lmao', 'rofl', 'roflmao'] },
                     { name: 'Mare', items: ['bny', 'gri', 'p po', 'grb'] }
                 ];
+
+                $scope.addItemToValigia = function(v_idx, item) {
+                    $scope.my_valigie[v_idx].items.push(item);
+                }
             });
         </script>
     </body>
