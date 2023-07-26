@@ -26,17 +26,29 @@
                 <h2 class="w3-center">All Lists</h2>
 
                 <!-- Search box -->
-                <div class="w3-card w3-row w3-padding-16">
-                    <div class="w3-col l6 w3-center">
-                        <div class="w3-container">
-                            <label>Search by tag</label>
-                            <input type="text" class="w3-input" name="search-by-tag" ng-model="yolo" />
-                        </div>
+                <div class="w3-card w3-row w3-section">
+                    <div class="w3-col l6 w3-center w3-padding">
+                        <label>Search by tag</label>
+                        <input type="text" class="w3-input" name="search-by-tag" ng-model="yolo" />
                     </div>
-                    <div class="w3-col l6 w3-center">
-                        <div class="w3-container">
-                            <label>Search by contents</label>
-                            <input type="text" class="w3-input" name="search-by-contents" />
+                    <div class="w3-col l6 w3-center w3-padding">
+                        <label>Search by contents</label>
+                        <input type="text" class="w3-input" name="search-by-contents" />
+                    </div>
+                </div>
+
+                <div class="w3-col m6 l4 w3-container w3-padding-small" ng-repeat="valigia in all_lists">
+                    <div class="w3-display-container w3-border">
+                        <div class="w3-container w3-yellow">
+                            <h5 class="w3-left">{{valigia.name}}</h5>
+                        </div>
+                        <ul>
+                            <li ng-repeat="x in valigia.items">{{x}}</li>
+                        </ul>
+
+                        <!-- Action widget -->
+                        <div class="w3-container w3-padding-small w3-align-right">
+                            <input type="button" class="w3-button w3-hover-deep-orange w3-block w3-tiny w3-orange w3-padding-small" value="Add" ng-click="all_lists.splice($index, 1);my_valigie.push(valigia)">
                         </div>
                     </div>
                 </div>
@@ -49,29 +61,45 @@
             <div class="w3-container w3-col m6">
                 <h2 class="w3-center">My Valigia</h2>
                 
+                <!-- Action box -->
+                <div class="w3-card w3-cell-row w3-section">
+                    <div class="w3-cell w3-center w3-padding-16">
+                        <input type="button" class="w3-button w3-white w3-border w3-border-orange w3-hover-orange w3-padding-small" disabled value="Resolve duplicates">
+                    </div>
+                    <div class="w3-cell w3-center w3-padding-16">
+                        <input type="button" class="w3-button w3-white w3-border w3-border-orange w3-hover-orange w3-padding-small" value="Generate">
+                    </div>
+                </div>
+
                 <div class="w3-row">
 
                     <!-- One editable list -->
-                    <div class="w3-col m6 l4 w3-border w3-display-container" ng-repeat="valigia in my_valigie">
-                        <div class="w3-container w3-yellow">
-                            <h5 class="w3-left">{{valigia.name}}</h5>
-                            <a ng-hide="edit_list_$index" class="w3-right w3-display-hover w3-text-deep-orange" href="#" ng-click="edit_list_$index = !edit_list_$index">Edit</a>
-                            <a ng-show="edit_list_$index" class="w3-right w3-text-deep-orange" href="#" ng-click="edit_list_$index = !edit_list_$index">Accept</a>
-                        </div>
-                        <ul>
-                            <li ng-repeat="x in valigia.items">
-                                <a ng-show="edit_list_$index" class="w3-text-deep-orange" href="#" ng-click="valigia.items.splice($index, 1)">[remove]</a>
-                                {{x}}
-                            </li>
-                        </ul>
-
-                        <!-- Editing widget -->
-                        <div ng-show="edit_list_$index" class="w3-container w3-pale-yellow w3-cell-row w3-padding-small">
-                            <div class="w3-cell w3-padding-small">
-                                <input type="text" class="w3-input w3-pale-yellow w3-padding-small" ng-model="new_for_valigia_$index" required>
+                    <div class="w3-col m6 l4 w3-container w3-padding-small" ng-repeat="valigia in my_valigie">
+                        <div class="w3-display-container w3-border">
+                            <div class="w3-container w3-yellow">
+                                <h5 class="w3-left">{{valigia.name}}</h5>
+                                <a ng-hide="edit_list_$index" class="w3-right w3-display-hover w3-text-deep-orange" href="#" ng-click="edit_list_$index = !edit_list_$index">Edit</a>
+                                <a ng-show="edit_list_$index" class="w3-right w3-text-deep-orange" href="#" ng-click="edit_list_$index = !edit_list_$index">Accept</a>
                             </div>
-                            <div class="w3-cell w3-padding-small">
-                                <input type="button" class="w3-button w3-hover-deep-orange w3-block w3-tiny w3-orange w3-padding-small" value="Add" ng-click="valigia.items.push(new_for_valigia_$index);new_for_valigia_$index=''">
+                            <ul>
+                                <li ng-repeat="x in valigia.items">
+                                    <a ng-show="edit_list_$index" class="w3-text-deep-orange" href="#" ng-click="valigia.items.splice($index, 1)">[remove]</a>
+                                    {{x}}
+                                </li>
+                            </ul>
+
+                            <!-- Editing widget -->
+                            <div ng-show="edit_list_$index" class="w3-pale-yellow w3-cell-row w3-padding-small">
+                                <div class="w3-cell w3-padding-small">
+                                    <input type="text" class="w3-input w3-pale-yellow w3-padding-small" ng-model="new_for_valigia_$index" required>
+                                </div>
+                                <div class="w3-cell w3-padding-small">
+                                    <input type="button" class="w3-button w3-hover-deep-orange w3-block w3-tiny w3-orange w3-padding-small" value="Add" ng-click="valigia.items.push(new_for_valigia_$index);new_for_valigia_$index=''">
+                                </div>
+                            </div>
+                            <!-- Action widget -->
+                            <div ng-hide="edit_list_$index" class="w3-container w3-padding-small w3-align-right">
+                                <input type="button" class="w3-button w3-hover-deep-orange w3-block w3-tiny w3-orange w3-padding-small" value="Remove" ng-click="my_valigie.splice($index, 1);all_lists.push(valigia)">
                             </div>
                         </div>
                     </div>
@@ -83,7 +111,13 @@
 
         <script>
             var app = angular.module('ngMain', []);
-            app.controller('ngMainCtrl', function($scope) {
+            app.controller('ngMainCtrl', function($scope, $http) {
+                $http.get("default-valigie.json").then(function(response) {
+                    $scope.all_lists = response.data;
+                }, function(response) {
+                    alert("Error: can't fetch the default list of valigie.");
+                });
+
                 $scope.my_valigie = [
                     { name: 'Montagna', items: ['yolo', 'swag', 'lol', 'kek', 'lmao', 'rofl', 'roflmao'] },
                     { name: 'Mare', items: ['bny', 'gri', 'p po', 'grb'] }

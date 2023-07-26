@@ -1,0 +1,70 @@
+[
+    {
+        "name": "Campeggio",
+        "tags": ["mare", "montagna", "escursione"],
+        "items": [
+            "Tenda",
+            "Picchetti",
+            "Mazzetta di gomma",
+            "Materassino",
+            "Sotto-materasso",
+            "Sacco a pelo",
+            "Telo sotto-tenda",
+            "Torcia frontale",
+            "Ventilatore portatile",
+            "Telo/Tendone",
+            "Aste per tendone",
+            "Tiranti tendone",
+            "Adattatore presa industriale",
+            "Prolunga",
+            "Tavolino + Sedie"
+        ]
+    },
+    {
+        "name": "Cucina",
+        "tags": ["campeggio"],
+        "items": [
+            "Tavolino + Sedie",
+            "Piatti",
+            "Tazze",
+            "Posate",
+            "Bicchieri",
+            "Borraccia",
+            "Fornello a gas",
+            "Bombola gas per fornello"
+        ]
+    },
+    {
+        "name": "Attrezzi",
+        "tags": ["campeggio", "diy", "escursione"],
+        "items": [
+            "Tenaglia multiuso",
+            "Metro",
+            "Spago/corda",
+            "Nastro adesivo"
+        ]
+    },
+    {
+        "name": "Beauty Case",
+        "tags": ["igiene personale", "medicinali", "salute"],
+        "items": [
+            "Spazzolino",
+            "Dentifricio",
+            "Deodorante",
+            "Sapone mani",
+            "Shampoo",
+            "Bagnoschiuma",
+            "Spazzola/Pettine",
+            "Chewingum",
+            "Tachipirina",
+            "Oki",
+            "Cerotti",
+            "Termometro",
+            "Sali minerali",
+            "Pastiglie gola/tosse",
+            "Kit manicure",
+            "Fazzoletti",
+            "Phon da viaggio"
+        ]
+    }
+]
