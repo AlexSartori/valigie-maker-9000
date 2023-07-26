@@ -6,7 +6,8 @@
             "Tenda",
             "Picchetti",
             "Mazzetta di gomma",
-            "Materassino",
+            "Materasso gonfiabile",
+            "Pompa per materasso",
             "Sotto-materasso",
             "Sacco a pelo",
             "Telo sotto-tenda",
@@ -21,7 +22,7 @@
         ]
     },
     {
-        "name": "Cucina",
+        "name": "Cucina sul campo",
         "tags": ["campeggio"],
         "items": [
             "Tavolino + Sedie",
@@ -46,7 +47,7 @@
     },
     {
         "name": "Beauty Case",
-        "tags": ["igiene personale", "medicinali", "salute"],
+        "tags": ["igiene personale"],
         "items": [
             "Spazzolino",
             "Dentifricio",
@@ -56,15 +57,103 @@
             "Bagnoschiuma",
             "Spazzola/Pettine",
             "Chewingum",
+            "Kit manicure",
+            "Fazzoletti",
+            "Phon da viaggio"
+        ]
+    },
+    {
+        "name": "Medicinali",
+        "tags": ["medicinali", "salute"],
+        "items": [
             "Tachipirina",
             "Oki",
             "Cerotti",
             "Termometro",
             "Sali minerali",
-            "Pastiglie gola/tosse",
-            "Kit manicure",
-            "Fazzoletti",
-            "Phon da viaggio"
+            "Pastiglie gola/tosse"
+        ]
+    },
+    {
+        "name": "Intraattenimento",
+        "tags": ["intrattenimento", "escursione"],
+        "items": [
+            "Cellulare",
+            "Caricatore cellulare",
+            "Laptop",
+            "Caricatore laptop",
+            "Cuffie",
+            "Libri"
+        ]
+    },
+    {
+        "name": "Fotografia",
+        "tags": ["fotografia", "intrattenimento", "escursione"],
+        "items": [
+            "Macchina Nikon",
+            "Obiettivo 18-55mm",
+            "Obiettivo 70-300mm",
+            "Cavo USB Nikon",
+            "Caricatore Nikon",
+            "Filtri Nikon",
+            "Cavalletto fotocamera",
+            "actioncam",
+            "Custodia actioncam",
+            "Accessori actioncam",
+            "Cavo USB actioncam",
+            "Lettore SD"
+        ]
+    },
+    {
+        "name": "Abbigliamento",
+        "tags": ["abbigliamento", "mare", "montagna", "escursione"],
+        "items": [
+            "(N) T-Shirt",
+            "(N) Felpe",
+            "(N) Maglioni",
+            "(N) Pantaloni corti",
+            "(N) Pantaloni lunghi",
+            "(N) Mutande",
+            "(N) Calzini",
+            "(N) Canottiere",
+            "(N) Scarpe",
+            "Accappatoio",
+            "Asciugamani",
+            "Ciabatte",
+            "Pigiama",
+            "K-Way",
+            "Cappotto"
+        ]
+    },
+    {
+        "name": "Mare",
+        "tags": ["mare", "abbigliamento"],
+        "items": [
+            "Costume",
+            "Telo mare",
+            "Crema solare"
+        ]
+    },
+    {
+        "name": "Montagna",
+        "tags": ["montagna", "abbigliamento", "escursione"],
+        "items": [
+            "Scarponi",
+            "Cappello",
+            "Occhiali da sole",
+            "Guanti",
+            "Sciarpa",
+            "Crema solare"
+        ]
+    },
+    {
+        "name": "Escursione",
+        "tags": ["escursione", "abbigliamento"],
+        "items": [
+            "Bastoni da trekking",
+            "Zaino",
+            "Borraccia",
+            "Pranzo al sacco"
         ]
     }
 ]

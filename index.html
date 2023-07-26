@@ -112,20 +112,16 @@
         <script>
             var app = angular.module('ngMain', []);
             app.controller('ngMainCtrl', function($scope, $http) {
+                $scope.my_valigie = [];
+                $scope.all_lists = [];
+
+                /* Fetch default lists */
                 $http.get("default-valigie.json").then(function(response) {
                     $scope.all_lists = response.data;
                 }, function(response) {
                     alert("Error: can't fetch the default list of valigie.");
                 });
 
-                $scope.my_valigie = [
-                    { name: 'Montagna', items: ['yolo', 'swag', 'lol', 'kek', 'lmao', 'rofl', 'roflmao'] },
-                    { name: 'Mare', items: ['bny', 'gri', 'p po', 'grb'] }
-                ];
-
-                $scope.addItemToValigia = function(v_idx, item) {
-                    $scope.my_valigie[v_idx].items.push(item);
-                }
             });
         </script>
     </body>
