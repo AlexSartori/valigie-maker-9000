@@ -153,8 +153,8 @@
               
                   <footer class="w3-container w3-yellow">
                     <div class="w3-container w3-padding-small w3-align-right">
-                        <input type="button" class="w3-button w3-hover-deep-orange w3-orange" value="Accept" ng-click="my_valigie.push(new_valigia_temp);new_valigia_temp={name:'',tags:[],items:[]};show_create_valigia=false;">
-                        <input type="button" class="w3-button w3-hover-deep-orange w3-orange" value="Cancel" ng-click="show_create_valigia=false; new_valigia_temp={name:'',tags:[],items:[]}">
+                        <input type="button" class="w3-button w3-hover-deep-orange w3-orange" value="Accept" ng-click="my_valigie.push(new_valigia_temp);resetNewValigia();show_create_valigia=false;">
+                        <input type="button" class="w3-button w3-hover-deep-orange w3-orange" value="Cancel" ng-click="show_create_valigia=false;resetNewValigia()">
                     </div>
                   </footer>
               
@@ -165,11 +165,6 @@
         <script>
             var app = angular.module('ngMain', []);
             app.controller('ngMainCtrl', function($scope, $http) {
-                $scope.show_create_valigia = false;
-                $scope.my_valigie = [];
-                $scope.all_lists = [];
-                $scope.new_valigia_temp = {name: '', tags: [], items: []};
-
                 /* Fetch default lists */
                 $http.get("default-valigie.json").then(function(response) {
                     $scope.all_lists = response.data;
@@ -177,10 +172,22 @@
                     alert("Error: can't fetch the default list of valigie.");
                 });
 
+                /* Prompt the user to edit an item */
                 $scope.editValigiaitem = function(valigia, index) {
                     new_item = prompt("Edit item", valigia.items[index]).trim();
                     if (new_item != '') valigia.items[index] = new_item;
                 }
+
+                /* Reset the new-valigia_temp object */
+                $scope.resetNewValigia = function() {
+                    $scope.new_valigia_temp = {name: '', tags: [], items: []};
+                }
+                
+                /* Init */
+                $scope.show_create_valigia = false;
+                $scope.my_valigie = [];
+                $scope.all_lists = [];
+                $scope.resetNewValigia();
             });
         </script>
     </body>
