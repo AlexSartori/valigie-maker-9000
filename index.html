@@ -36,11 +36,15 @@
                         <input type="text" class="w3-input" name="search-by-contents" />
                     </div>
                 </div>
-
+                
+                <!-- Lists -->
                 <div class="w3-col m6 l4 w3-container w3-padding-small" ng-repeat="valigia in all_lists">
                     <div class="w3-display-container w3-border">
                         <div class="w3-container w3-yellow">
-                            <h5 class="w3-left">{{valigia.name}}</h5>
+                            <h5 style="margin-bottom: 0px">{{valigia.name}}</h5>
+                            <small class="w3-text-gray">
+                                Tags: <span ng-repeat="t in valigia.tags">{{t}} </span>
+                            </small>
                         </div>
                         <ul>
                             <li ng-repeat="x in valigia.items">{{x}}</li>
@@ -50,12 +54,9 @@
                         <div class="w3-container w3-padding-small w3-align-right">
                             <input type="button" class="w3-button w3-hover-deep-orange w3-block w3-tiny w3-orange w3-padding-small" value="Add" ng-click="all_lists.splice($index, 1);my_valigie.push(valigia)">
                         </div>
-                    </div>
-                </div>
-
-                <!-- Lists -->
-
-            </div>
+                    </div> <!-- Valigia -->
+                </div> <!-- Row of valigie -->
+            </div> <!-- Left column -->
             
             <!-- Right column -->
             <div class="w3-container w3-col m6">
@@ -67,24 +68,35 @@
                         <input type="button" class="w3-button w3-white w3-border w3-border-orange w3-hover-orange w3-padding-small" disabled value="Resolve duplicates">
                     </div>
                     <div class="w3-cell w3-center w3-padding-16">
-                        <input type="button" class="w3-button w3-white w3-border w3-border-orange w3-hover-orange w3-padding-small" value="Generate">
+                        <input type="button" class="w3-button w3-white w3-border w3-border-orange w3-hover-orange w3-padding-small" ng-click="show_create_valigia=true" value="New list">
+                    </div>
+                    <div class="w3-cell w3-center w3-padding-16">
+                        <input type="button" class="w3-button w3-white w3-border w3-border-orange w3-hover-orange w3-padding-small" value="Import data">
+                    </div>
+                    <div class="w3-cell w3-center w3-padding-16">
+                        <input type="button" class="w3-button w3-white w3-border w3-border-orange w3-hover-orange w3-padding-small" value="Export data">
+                    </div>
+                    <div class="w3-cell w3-center w3-padding-16">
+                        <input type="button" class="w3-button w3-orange w3-border w3-border-orange w3-hover-white w3-padding-small" value="Generate">
                     </div>
                 </div>
 
                 <div class="w3-row">
-
                     <!-- One editable list -->
                     <div class="w3-col m6 l4 w3-container w3-padding-small" ng-repeat="valigia in my_valigie">
                         <div class="w3-display-container w3-border">
                             <div class="w3-container w3-yellow">
                                 <h5 class="w3-left">{{valigia.name}}</h5>
-                                <a ng-hide="edit_list_$index" class="w3-right w3-display-hover w3-text-deep-orange" href="#" ng-click="edit_list_$index = !edit_list_$index">Edit</a>
-                                <a ng-show="edit_list_$index" class="w3-right w3-text-deep-orange" href="#" ng-click="edit_list_$index = !edit_list_$index">Accept</a>
+                                <a ng-hide="edit_list_$index" style="margin-top:10px" class="w3-right w3-display-hover w3-text-deep-orange" href="#" ng-click="edit_list_$index = !edit_list_$index">Edit</a>
+                                <a ng-show="edit_list_$index" style="margin-top:10px" class="w3-right w3-text-deep-orange" href="#" ng-click="edit_list_$index = !edit_list_$index">Accept</a>
                             </div>
                             <ul>
                                 <li ng-repeat="x in valigia.items">
-                                    <a ng-show="edit_list_$index" class="w3-text-deep-orange" href="#" ng-click="valigia.items.splice($index, 1)">[remove]</a>
                                     {{x}}
+                                    <small ng-show="edit_list_$index"> <br />[
+                                        <a class="w3-text-deep-orange" href="#" ng-click="editValigiaitem(valigia, $index)">edit</a> |
+                                        <a class="w3-text-deep-orange" href="#" ng-click="valigia.items.splice($index, 1)">remove</a> ]
+                                    </small>
                                 </li>
                             </ul>
 
@@ -102,18 +114,61 @@
                                 <input type="button" class="w3-button w3-hover-deep-orange w3-block w3-tiny w3-orange w3-padding-small" value="Remove" ng-click="my_valigie.splice($index, 1);all_lists.push(valigia)">
                             </div>
                         </div>
+                    </div> <!-- Valigia -->
+                </div> <!-- Row of valigie -->
+            </div> <!-- Right Column -->
+            
+            <!-- Modal for creating a new valigia -->
+            <!-- I set display:block to override w3-modal that sets it to none and makes ng-show fail. -->
+            <div ng-show="show_create_valigia" style="display: block;" class="w3-modal w3-card-4">
+                <div class="w3-modal-content w3-animate-top">
+              
+                  <header class="w3-container w3-yellow">
+                    <span ng-click="show_create_valigia=false" class="w3-button w3-display-topright">&times;</span>
+                    <h5>Create new list</h5>
+                  </header>
+              
+                  <div class="w3-container w3-padding">
+                    <h5>
+                        <label for="new_valigia_title">Title:</label>
+                        <input type="text" name="new_valigia_title" class="w3-input" ng-model="new_valigia_temp.name">
+                    </h5>
+
+                    <p>Items:</p>
+                    <ul>
+                        <li ng-repeat="item in new_valigia_temp.items">{{item}}</li>
+
+                        <!-- Editing widget -->
+                        <div class="w3-pale-yellow w3-cell-row w3-padding-small">
+                            <div class="w3-cell w3-padding-small">
+                                <input type="text" class="w3-input w3-pale-yellow w3-padding-small" ng-model="new_valigia_new_item" required>
+                            </div>
+                            <div class="w3-cell w3-padding-small">
+                                <input type="button" class="w3-button w3-hover-deep-orange w3-block w3-tiny w3-orange w3-padding-small" value="Add" ng-click="new_valigia_temp.items.push(new_valigia_new_item);new_valigia_new_item=''">
+                            </div>
+                        </div>
+                    </ul>
+                    
+                  </div>
+              
+                  <footer class="w3-container w3-yellow">
+                    <div class="w3-container w3-padding-small w3-align-right">
+                        <input type="button" class="w3-button w3-hover-deep-orange w3-orange" value="Accept" ng-click="my_valigie.push(new_valigia_temp);new_valigia_temp={name:'',tags:[],items:[]};show_create_valigia=false;">
+                        <input type="button" class="w3-button w3-hover-deep-orange w3-orange" value="Cancel" ng-click="show_create_valigia=false; new_valigia_temp={name:'',tags:[],items:[]}">
                     </div>
-
+                  </footer>
+              
                 </div>
-            </div>
+              </div> 
         </div>
-
 
         <script>
             var app = angular.module('ngMain', []);
             app.controller('ngMainCtrl', function($scope, $http) {
+                $scope.show_create_valigia = false;
                 $scope.my_valigie = [];
                 $scope.all_lists = [];
+                $scope.new_valigia_temp = {name: '', tags: [], items: []};
 
                 /* Fetch default lists */
                 $http.get("default-valigie.json").then(function(response) {
@@ -122,6 +177,10 @@
                     alert("Error: can't fetch the default list of valigie.");
                 });
 
+                $scope.editValigiaitem = function(valigia, index) {
+                    new_item = prompt("Edit item", valigia.items[index]).trim();
+                    if (new_item != '') valigia.items[index] = new_item;
+                }
             });
         </script>
     </body>
