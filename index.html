@@ -51,7 +51,7 @@
                         </ul>
 
                         <!-- Action widget -->
-                        <div class="w3-container w3-padding-small w3-align-right">
+                        <div class="w3-container w3-padding-small w3-right-align">
                             <input type="button" class="w3-button w3-hover-deep-orange w3-block w3-tiny w3-orange w3-padding-small" value="Add" ng-click="all_lists.splice($index, 1);my_valigie.push(valigia)">
                         </div>
                     </div> <!-- Valigia -->
@@ -74,7 +74,7 @@
                         <input type="button" class="w3-button w3-white w3-border w3-border-orange w3-hover-orange w3-padding-small" value="Import data">
                     </div>
                     <div class="w3-cell w3-center w3-padding-16">
-                        <input type="button" class="w3-button w3-white w3-border w3-border-orange w3-hover-orange w3-padding-small" value="Export data">
+                        <input type="button" class="w3-button w3-white w3-border w3-border-orange w3-hover-orange w3-padding-small" ng-click="show_export_data=true" value="Export data">
                     </div>
                     <div class="w3-cell w3-center w3-padding-16">
                         <input type="button" class="w3-button w3-orange w3-border w3-border-orange w3-hover-white w3-padding-small" value="Generate">
@@ -110,7 +110,7 @@
                                 </div>
                             </div>
                             <!-- Action widget -->
-                            <div ng-hide="edit_list_$index" class="w3-container w3-padding-small w3-align-right">
+                            <div ng-hide="edit_list_$index" class="w3-container w3-padding-small w3-right-align">
                                 <input type="button" class="w3-button w3-hover-deep-orange w3-block w3-tiny w3-orange w3-padding-small" value="Remove" ng-click="my_valigie.splice($index, 1);all_lists.push(valigia)">
                             </div>
                         </div>
@@ -122,7 +122,6 @@
             <!-- I set display:block to override w3-modal that sets it to none and makes ng-show fail. -->
             <div ng-show="show_create_valigia" style="display: block;" class="w3-modal w3-card-4">
                 <div class="w3-modal-content w3-animate-top">
-              
                   <header class="w3-container w3-yellow">
                     <span ng-click="show_create_valigia=false" class="w3-button w3-display-topright">&times;</span>
                     <h5>Create new list</h5>
@@ -137,8 +136,6 @@
                     <p>Items:</p>
                     <ul>
                         <li ng-repeat="item in new_valigia_temp.items">{{item}}</li>
-
-                        <!-- Editing widget -->
                         <div class="w3-pale-yellow w3-cell-row w3-padding-small">
                             <div class="w3-cell w3-padding-small">
                                 <input type="text" class="w3-input w3-pale-yellow w3-padding-small" ng-model="new_valigia_new_item" required>
@@ -148,22 +145,44 @@
                             </div>
                         </div>
                     </ul>
-                    
                   </div>
               
                   <footer class="w3-container w3-yellow">
-                    <div class="w3-container w3-padding-small w3-align-right">
-                        <input type="button" class="w3-button w3-hover-deep-orange w3-orange" value="Accept" ng-click="my_valigie.push(new_valigia_temp);resetNewValigia();show_create_valigia=false;">
+                    <div class="w3-container w3-padding-small w3-right-align">
                         <input type="button" class="w3-button w3-hover-deep-orange w3-orange" value="Cancel" ng-click="show_create_valigia=false;resetNewValigia()">
+                        <input type="button" class="w3-button w3-hover-deep-orange w3-orange" value="Accept" ng-click="my_valigie.push(new_valigia_temp);resetNewValigia();show_create_valigia=false;">
                     </div>
                   </footer>
-              
                 </div>
-              </div> 
+            </div>
+
+            <!-- Modal for exporting data -->
+            <!-- I set display:block to override w3-modal that sets it to none and makes ng-show fail. -->
+            <div ng-show="show_export_data" style="display: block;" class="w3-modal w3-card-4">
+                <div class="w3-modal-content w3-animate-top">
+                    <header class="w3-container w3-yellow">
+                        <span ng-click="show_export_data=false" class="w3-button w3-display-topright">&times;</span>
+                        <h2>Export data</h2>
+                    </header>
+
+                    <div class="w3-container w3-padding">
+                        <h5>Select which lists to export:</h5>
+                        <ul style="columns:2;">
+                            <li ng-repeat="valigia in all_lists.concat(my_valigie)"><input type="checkbox" name="export_valigia_$index" checked> {{valigia.name}}</li>
+                        </ul>
+                    </div>
+
+                    <footer class="w3-container w3-padding w3-right-align">
+                        <input type="button" class="w3-button w3-hover-orange w3-border w3-border-orange" value="Cancel" ng-click="show_export_data=false">
+                        <input type="button" class="w3-button w3-hover-orange w3-border w3-border-orange" value="Download" ng-click="">
+                    </footer>
+                </div>
+            </div> 
         </div>
 
         <script>
             var app = angular.module('ngMain', []);
+
             app.controller('ngMainCtrl', function($scope, $http) {
                 /* Fetch default lists */
                 $http.get("default-valigie.json").then(function(response) {
@@ -182,9 +201,10 @@
                 $scope.resetNewValigia = function() {
                     $scope.new_valigia_temp = {name: '', tags: [], items: []};
                 }
-                
+
                 /* Init */
                 $scope.show_create_valigia = false;
+                $scope.show_export_data = true;
                 $scope.my_valigie = [];
                 $scope.all_lists = [];
                 $scope.resetNewValigia();
