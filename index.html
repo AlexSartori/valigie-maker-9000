@@ -12,6 +12,10 @@
             html, body, h1, h2, h3, h4, h5, h6 {
                 font-family: 'Josefin Sans', sans-serif;
             }
+
+            .w3-modal {
+                display: block; /* Override the "display:none" otherwise ng-show fails */
+            }
         </style>
     </head>
     <body>
@@ -36,7 +40,7 @@
                         <input type="text" class="w3-input" name="search-by-contents" />
                     </div>
                 </div>
-                
+
                 <!-- Lists -->
                 <div class="w3-col m6 l4 w3-container w3-padding-small" ng-repeat="valigia in all_lists">
                     <div class="w3-display-container w3-border">
@@ -57,11 +61,11 @@
                     </div> <!-- Valigia -->
                 </div> <!-- Row of valigie -->
             </div> <!-- Left column -->
-            
+
             <!-- Right column -->
             <div class="w3-container w3-col m6">
                 <h2 class="w3-center">My Valigia</h2>
-                
+
                 <!-- Action box -->
                 <div class="w3-card w3-cell-row w3-section">
                     <div class="w3-cell w3-center w3-padding-16">
@@ -117,48 +121,48 @@
                     </div> <!-- Valigia -->
                 </div> <!-- Row of valigie -->
             </div> <!-- Right Column -->
-            
+
             <!-- Modal for creating a new valigia -->
             <!-- I set display:block to override w3-modal that sets it to none and makes ng-show fail. -->
-            <div ng-show="show_create_valigia" style="display: block;" class="w3-modal w3-card-4">
+            <div ng-show="show_create_valigia" class="w3-modal w3-card-4">
                 <div class="w3-modal-content w3-animate-top">
-                  <header class="w3-container w3-yellow">
-                    <span ng-click="show_create_valigia=false" class="w3-button w3-display-topright">&times;</span>
-                    <h5>Create new list</h5>
-                  </header>
-              
-                  <div class="w3-container w3-padding">
-                    <h5>
-                        <label for="new_valigia_title">Title:</label>
-                        <input type="text" name="new_valigia_title" class="w3-input" ng-model="new_valigia_temp.name">
-                    </h5>
+                    <header class="w3-container w3-yellow">
+                        <span ng-click="show_create_valigia=false" class="w3-button w3-display-topright">&times;</span>
+                        <h5>Create new list</h5>
+                    </header>
 
-                    <p>Items:</p>
-                    <ul>
-                        <li ng-repeat="item in new_valigia_temp.items">{{item}}</li>
-                        <div class="w3-pale-yellow w3-cell-row w3-padding-small">
-                            <div class="w3-cell w3-padding-small">
-                                <input type="text" class="w3-input w3-pale-yellow w3-padding-small" ng-model="new_valigia_new_item" required>
+                    <div class="w3-container w3-padding">
+                        <h5>
+                            <label for="new_valigia_title">Title:</label>
+                            <input type="text" name="new_valigia_title" class="w3-input" ng-model="new_valigia_temp.name">
+                        </h5>
+
+                        <p>Items:</p>
+                        <ul>
+                            <li ng-repeat="item in new_valigia_temp.items">{{item}}</li>
+                            <div class="w3-pale-yellow w3-cell-row w3-padding-small">
+                                <div class="w3-cell w3-padding-small">
+                                    <input type="text" class="w3-input w3-pale-yellow w3-padding-small" ng-model="new_valigia_new_item" required>
+                                </div>
+                                <div class="w3-cell w3-padding-small">
+                                    <input type="button" class="w3-button w3-hover-deep-orange w3-block w3-tiny w3-orange w3-padding-small" value="Add" ng-click="new_valigia_temp.items.push(new_valigia_new_item);new_valigia_new_item=''">
+                                </div>
                             </div>
-                            <div class="w3-cell w3-padding-small">
-                                <input type="button" class="w3-button w3-hover-deep-orange w3-block w3-tiny w3-orange w3-padding-small" value="Add" ng-click="new_valigia_temp.items.push(new_valigia_new_item);new_valigia_new_item=''">
-                            </div>
-                        </div>
-                    </ul>
-                  </div>
-              
-                  <footer class="w3-container w3-yellow">
-                    <div class="w3-container w3-padding-small w3-right-align">
-                        <input type="button" class="w3-button w3-hover-deep-orange w3-orange" value="Cancel" ng-click="show_create_valigia=false;resetNewValigia()">
-                        <input type="button" class="w3-button w3-hover-deep-orange w3-orange" value="Accept" ng-click="my_valigie.push(new_valigia_temp);resetNewValigia();show_create_valigia=false;">
+                        </ul>
                     </div>
-                  </footer>
+
+                    <footer class="w3-container w3-yellow">
+                        <div class="w3-container w3-padding-small w3-right-align">
+                            <input type="button" class="w3-button w3-hover-deep-orange w3-orange" value="Cancel" ng-click="show_create_valigia=false;resetNewValigia()">
+                            <input type="button" class="w3-button w3-hover-deep-orange w3-orange" value="Accept" ng-click="my_valigie.push(new_valigia_temp);resetNewValigia();show_create_valigia=false;">
+                        </div>
+                    </footer>
                 </div>
             </div>
 
             <!-- Modal for exporting data -->
             <!-- I set display:block to override w3-modal that sets it to none and makes ng-show fail. -->
-            <div ng-show="show_export_data" style="display: block;" class="w3-modal w3-card-4">
+            <div ng-show="show_export_data" class="w3-modal w3-card-4">
                 <div class="w3-modal-content w3-animate-top">
                     <header class="w3-container w3-yellow">
                         <span ng-click="show_export_data=false" class="w3-button w3-display-topright">&times;</span>
@@ -174,7 +178,7 @@
 
                     <footer class="w3-container w3-padding w3-right-align">
                         <input type="button" class="w3-button w3-hover-orange w3-border w3-border-orange" value="Cancel" ng-click="show_export_data=false">
-                        <input type="button" class="w3-button w3-hover-orange w3-border w3-border-orange" value="Download" ng-click="">
+                        <input type="button" class="w3-button w3-hover-orange w3-border w3-border-orange" value="Download" ng-click="" onclick="alert('Not yet implemented, sry :)')">
                     </footer>
                 </div>
             </div> 
@@ -204,7 +208,7 @@
 
                 /* Init */
                 $scope.show_create_valigia = false;
-                $scope.show_export_data = true;
+                $scope.show_export_data = false;
                 $scope.my_valigie = [];
                 $scope.all_lists = [];
                 $scope.resetNewValigia();
