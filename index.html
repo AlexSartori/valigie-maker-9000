@@ -106,12 +106,14 @@
 
                             <!-- Editing widget -->
                             <div ng-show="edit_list_$index" class="w3-pale-yellow w3-cell-row w3-padding-small">
-                                <div class="w3-cell w3-padding-small">
-                                    <input type="text" class="w3-input w3-pale-yellow w3-padding-small" ng-model="new_for_valigia_$index" required>
-                                </div>
-                                <div class="w3-cell w3-padding-small">
-                                    <input type="button" class="w3-button w3-hover-deep-orange w3-block w3-tiny w3-orange w3-padding-small" value="Add" ng-click="valigia.items.push(new_for_valigia_$index);new_for_valigia_$index=''">
-                                </div>
+                                <form name="form_edit_list_$index">
+                                    <div class="w3-cell w3-padding-small">
+                                        <input type="text" class="w3-input w3-pale-yellow w3-padding-small" ng-model="new_for_valigia_$index" required>
+                                    </div>
+                                    <div class="w3-cell w3-padding-small">
+                                        <input type="button" ng-disabled="form_edit_list_$index.$invalid" class="w3-button w3-hover-deep-orange w3-block w3-tiny w3-orange w3-padding-small" value="Add" ng-click="valigia.items.push(new_for_valigia_$index);new_for_valigia_$index=''">
+                                    </div>
+                                </form>
                             </div>
                             <!-- Action widget -->
                             <div ng-hide="edit_list_$index" class="w3-container w3-padding-small w3-right-align">
@@ -126,37 +128,39 @@
             <!-- I set display:block to override w3-modal that sets it to none and makes ng-show fail. -->
             <div ng-show="show_create_valigia" class="w3-modal w3-card-4">
                 <div class="w3-modal-content w3-animate-top">
-                    <header class="w3-container w3-yellow">
-                        <span ng-click="show_create_valigia=false" class="w3-button w3-display-topright">&times;</span>
-                        <h5>Create new list</h5>
-                    </header>
+                    <form name="form_new_valigia">
+                        <header class="w3-container w3-yellow">
+                            <span ng-click="show_create_valigia=false" class="w3-button w3-display-topright">&times;</span>
+                            <h5>Create new list</h5>
+                        </header>
 
-                    <div class="w3-container w3-padding">
-                        <h5>
-                            <label for="new_valigia_title">Title:</label>
-                            <input type="text" name="new_valigia_title" class="w3-input" ng-model="new_valigia_temp.name">
-                        </h5>
+                        <div class="w3-container w3-padding">
+                            <h5>
+                                <label for="new_valigia_title">Title:</label>
+                                <input type="text" name="new_valigia_title" class="w3-input" ng-model="new_valigia_temp.name" required>
+                            </h5>
 
-                        <p>Items:</p>
-                        <ul>
-                            <li ng-repeat="item in new_valigia_temp.items">{{item}}</li>
-                            <div class="w3-pale-yellow w3-cell-row w3-padding-small">
-                                <div class="w3-cell w3-padding-small">
-                                    <input type="text" class="w3-input w3-pale-yellow w3-padding-small" ng-model="new_valigia_new_item" required>
+                            <p>Items:</p>
+                            <ul>
+                                <li ng-repeat="item in new_valigia_temp.items">{{item}}</li>
+                                <div class="w3-pale-yellow w3-cell-row w3-padding-small">
+                                    <div class="w3-cell w3-padding-small">
+                                        <input type="text" class="w3-input w3-pale-yellow w3-padding-small" ng-model="new_valigia_new_item">
+                                    </div>
+                                    <div class="w3-cell w3-padding-small">
+                                        <input type="button" class="w3-button w3-hover-deep-orange w3-block w3-tiny w3-orange w3-padding-small" value="Add" ng-click="(new_valigia_new_item && new_valigia_temp.items.push(new_valigia_new_item));new_valigia_new_item=''">
+                                    </div>
                                 </div>
-                                <div class="w3-cell w3-padding-small">
-                                    <input type="button" class="w3-button w3-hover-deep-orange w3-block w3-tiny w3-orange w3-padding-small" value="Add" ng-click="new_valigia_temp.items.push(new_valigia_new_item);new_valigia_new_item=''">
-                                </div>
-                            </div>
-                        </ul>
-                    </div>
-
-                    <footer class="w3-container w3-yellow">
-                        <div class="w3-container w3-padding-small w3-right-align">
-                            <input type="button" class="w3-button w3-hover-deep-orange w3-orange" value="Cancel" ng-click="show_create_valigia=false;resetNewValigia()">
-                            <input type="button" class="w3-button w3-hover-deep-orange w3-orange" value="Accept" ng-click="my_valigie.push(new_valigia_temp);resetNewValigia();show_create_valigia=false;">
+                            </ul>
                         </div>
-                    </footer>
+
+                        <footer class="w3-container w3-yellow">
+                            <div class="w3-container w3-padding-small w3-right-align">
+                                <input type="button" class="w3-button w3-hover-deep-orange w3-orange" value="Cancel" ng-click="show_create_valigia=false;resetNewValigia()">
+                                <input type="button" ng-disabled="form_new_valigia.$dirty && form_new_valigia.$invalid" class="w3-button w3-hover-deep-orange w3-orange" value="Accept" ng-click="my_valigie.push(new_valigia_temp);resetNewValigia();show_create_valigia=false;">
+                            </div>
+                        </footer>
+                    </form>
                 </div>
             </div>
 
