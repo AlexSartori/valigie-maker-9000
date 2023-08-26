@@ -9,25 +9,34 @@ function export_valigie_to_PDF(valigie) {
         
         styles: {
             header: {
-              fontSize: 18,
+              fontSize: 22,
               bold: true, alignment: 'center',
               alignment: 'center',
+              margin: [0, 20]
             },
-            subheader: {
-                fontSize: 16,
-                bold: true,
-                margin: [0, 15, 0, 0]
+            table: {
+                fontSize: 10
+            },
+            deafultStyle: {
+                fontSize: 10,
+                columnGap: 20
             }
         }
     };
 
+    /* Distribute tables in columns */
+    col_idx = 1;
+    col_fill_level = 0;
+    col_n = 3
+
     for (var i = 0; i < valigie.length; i++) {
         var tmp_table = {
+            style: 'table',
             headerRows: 1,
             widths: [15, 15, 'auto'],
             body: [
-                [{text: valigie[i].name, colSpan: 3, bold: true, alignment: 'center'}, {}, {}],
-                [{text: 'A', bold: true, alignment: 'center'}, {text: 'R', bold: true, alignment: 'center'}, {text: 'Descrizione', bold: true, alignment: 'center'}]
+                [{text: valigie[i].name, colSpan: 3, bold: true, alignment: 'center', fillColor: '#bbb', fontSize: 16}, {}, {}],
+                [{text: 'A', bold: true, alignment: 'center', fillColor: '#ddd'}, {text: 'R', bold: true, alignment: 'center', fillColor: '#ddd'}, {text: 'Descrizione', bold: true, alignment: 'center', fillColor: '#ddd'}]
             ]
         }
 
@@ -36,7 +45,15 @@ function export_valigie_to_PDF(valigie) {
                 ['     ', '    ', valigie[i].items[j]]
             )
         }
-        docDefinition.content[1].columns.push({'table': tmp_table});
+
+        
+        docDefinition.content[col_idx].columns.push({'table': tmp_table, 'width': 'auto', 'margin': [10, 10]});
+        col_fill_level += 1;
+        if (col_fill_level == col_n) {
+            docDefinition.content.push({columns: []});
+            col_idx += 1;
+            col_fill_level = 0;
+        }
     }
 
       
