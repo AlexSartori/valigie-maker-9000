@@ -7,6 +7,9 @@
         <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300&display=swap" rel="stylesheet"> 
         
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js'></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+        <script src="js/pdf_gen.js"></script>
 
         <style>
             html, body, h1, h2, h3, h4, h5, h6 {
@@ -81,7 +84,7 @@
                         <input type="button" class="w3-button w3-white w3-border w3-border-orange w3-hover-orange w3-padding-small" ng-click="show_export_data=true" value="Export data">
                     </div>
                     <div class="w3-cell w3-center w3-padding-16">
-                        <input type="button" class="w3-button w3-orange w3-border w3-border-orange w3-hover-white w3-padding-small" value="Generate">
+                        <input type="button" class="w3-button w3-orange w3-border w3-border-orange w3-hover-white w3-padding-small" ng-click="export_valigie_to_PDF(my_valigie)" value="Generate">
                     </div>
                 </div>
 
@@ -209,7 +212,9 @@
                 $scope.resetNewValigia = function() {
                     $scope.new_valigia_temp = {name: '', tags: [], items: []};
                 }
-
+                
+                $scope.export_valigie_to_PDF = export_valigie_to_PDF;
+        
                 /* Init */
                 $scope.show_create_valigia = false;
                 $scope.show_export_data = false;
