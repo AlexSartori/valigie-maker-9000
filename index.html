@@ -195,6 +195,8 @@
             var app = angular.module('ngMain', []);
 
             app.filter('custom_search', function() {
+                /* Restyle and refactor a bit che la xe bruta come la fame */
+                
                 return function(valigie, search_by_tag, search_by_contents) {
                     if (!search_by_tag && !search_by_contents) return valigie;
 

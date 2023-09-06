@@ -42,7 +42,10 @@
             "Tenaglia multiuso",
             "Metro",
             "Spago/corda",
-            "Nastro adesivo"
+            "Nastro adesivo",
+            "Pinecil",
+            "Multimetro tascabile",
+            "Accendino"
         ]
     },
     {
@@ -83,7 +86,27 @@
             "Laptop",
             "Caricatore laptop",
             "Cuffie",
-            "Libri"
+            "Libri",
+            "MAGNEX",
+            "Carica MAGNEX",
+            "Kindle"
+        ]
+    },
+    {
+        "name": "Essenziali",
+        "tags": ["essenziali"],
+        "items": [
+            "Portafoglio",
+            "Carta d'identità",
+            "Patente",
+            "Tessera sanitaria",
+            "Carta di credito",
+            "Contanti",
+            "Chiavi casa",
+            "Chiavi auto",
+            "Orologio",
+            "Occhiali da vista",
+            "Ombrello da viaggio"
         ]
     },
     {
@@ -131,7 +154,12 @@
         "items": [
             "Costume",
             "Telo mare",
-            "Crema solare"
+            "Crema solare",
+            "Occhiali da sole",
+            "Cappello",
+            "Ciabatte",
+            "Borraccia",
+            "Biglie/Paletta"
         ]
     },
     {
