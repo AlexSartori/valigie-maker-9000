@@ -35,7 +35,7 @@
                 <!-- Search box -->
                 <div class="w3-card w3-row w3-section">
                     <div class="w3-col l6 w3-center w3-padding">
-                        <label>Search by tag</label>
+                        <label>Search by title/tags</label>
                         <input type="text" class="w3-input" ng-model="search_by_tag" ng-click="search_by_contents=''" />
                     </div>
                     <div class="w3-col l6 w3-center w3-padding">
@@ -215,10 +215,14 @@
                         } else if (search_by_tag) {
                             search_by_tag = search_by_tag.toLowerCase();
 
-                            for (var j = 0; j < valigia.tags.length; j++) {
-                                tag = valigia.tags[j].toLowerCase();
-                                if (tag.includes(search_by_tag)) {
-                                    result.push(valigia);
+                            if (valigia.name.toLowerCase().includes(search_by_tag)) {
+                                result.push(valigia);
+                            } else {
+                                for (var j = 0; j < valigia.tags.length; j++) {
+                                    tag = valigia.tags[j].toLowerCase();
+                                    if (tag.includes(search_by_tag)) {
+                                        result.push(valigia);
+                                    }
                                 }
                             }
                         }
