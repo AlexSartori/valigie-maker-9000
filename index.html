@@ -36,16 +36,16 @@
                 <div class="w3-card w3-row w3-section">
                     <div class="w3-col l6 w3-center w3-padding">
                         <label>Search by tag</label>
-                        <input type="text" class="w3-input" name="search-by-tag" ng-model="yolo" />
+                        <input type="text" class="w3-input" ng-model="search_by_tag" ng-click="search_by_contents=''" />
                     </div>
                     <div class="w3-col l6 w3-center w3-padding">
                         <label>Search by contents</label>
-                        <input type="text" class="w3-input" name="search-by-contents" />
+                        <input type="text" class="w3-input" ng-model="search_by_contents" ng-click="search_by_tag=''" />
                     </div>
                 </div>
 
                 <!-- Lists -->
-                <div class="w3-col m6 l4 w3-container w3-padding-small" ng-repeat="valigia in all_lists">
+                <div class="w3-col m6 l4 w3-container w3-padding-small" ng-repeat="valigia in all_lists | custom_search:search_by_tag:search_by_contents">
                     <div class="w3-display-container w3-border">
                         <div class="w3-container w3-yellow">
                             <h5 style="margin-bottom: 0px">{{valigia.name}}</h5>
@@ -193,6 +193,40 @@
 
         <script>
             var app = angular.module('ngMain', []);
+
+            app.filter('custom_search', function() {
+                return function(valigie, search_by_tag, search_by_contents) {
+                    if (!search_by_tag && !search_by_contents) return valigie;
+
+                    result = [];
+
+                    for (var i = 0; i < valigie.length; i++) {
+                        valigia = valigie[i];
+
+                        if (search_by_contents) {
+                            search_by_contents = search_by_contents.toLowerCase();
+                           
+                            for (var j = 0; j < valigia.items.length; j++) {
+                                item = valigia.items[j].toLowerCase();
+                                if (item.includes(search_by_contents)) {
+                                    result.push(valigia);
+                                }
+                            }
+                        } else if (search_by_tag) {
+                            search_by_tag = search_by_tag.toLowerCase();
+
+                            for (var j = 0; j < valigia.tags.length; j++) {
+                                tag = valigia.tags[j].toLowerCase();
+                                if (tag.includes(search_by_tag)) {
+                                    result.push(valigia);
+                                }
+                            }
+                        }
+                    }
+
+                    return result;
+                }
+            });
 
             app.controller('ngMainCtrl', function($scope, $http) {
                 /* Fetch default lists */
