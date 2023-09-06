@@ -1,8 +1,13 @@
 function export_valigie_to_PDF(valigie) {
+    /* Sort valigie by lenght to have nicer columns */
+    valigie.sort(function(a, b) {
+        return a.items.length - b.items.length;
+    });
 
     var docDefinition = {
         content: [
-            {style: 'header', text: 'Generated with Valigie Maker 9000'},
+            {style: 'header', text: 'Generated with Valigie Maker 9000', margin: 5},
+            {text: 'http://alexsartori.github.io', alignment: 'center', fontSize: 10, marginBottom: 20},
             {columns: []}
         ],
         
@@ -25,7 +30,7 @@ function export_valigie_to_PDF(valigie) {
     };
 
     /* Distribute tables in columns */
-    col_idx = 1;
+    col_idx = 2;
     col_fill_level = 0;
     col_n = 3
 
