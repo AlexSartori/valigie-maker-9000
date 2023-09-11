@@ -79,10 +79,10 @@
                         <input type="button" class="w3-button w3-white w3-border w3-border-orange w3-hover-orange w3-padding-small" ng-click="show_create_valigia=true" value="New list">
                     </div>
                     <div class="w3-cell w3-center w3-padding-16">
-                        <input type="button" class="w3-button w3-white w3-border w3-border-orange w3-hover-orange w3-padding-small" value="Import data">
+                        <input type="button" class="w3-button w3-white w3-border w3-border-orange w3-hover-orange w3-padding-small" ng-click="show_import_dataset=true" value="Import data">
                     </div>
                     <div class="w3-cell w3-center w3-padding-16">
-                        <input type="button" class="w3-button w3-white w3-border w3-border-orange w3-hover-orange w3-padding-small" ng-click="show_export_data=true" value="Export data">
+                        <input type="button" class="w3-button w3-white w3-border w3-border-orange w3-hover-orange w3-padding-small" ng-click="exportValigie2JSON()" value="Export data">
                     </div>
                     <div class="w3-cell w3-center w3-padding-16">
                         <input type="button" class="w3-button w3-orange w3-border w3-border-orange w3-hover-white w3-padding-small" ng-click="export_valigie_to_PDF(my_valigie)" value="Generate">
@@ -168,29 +168,30 @@
                 </div>
             </div>
 
-            <!-- Modal for exporting data -->
+            <!-- Modal for importing a dataset -->
             <!-- I set display:block to override w3-modal that sets it to none and makes ng-show fail. -->
-            <div ng-show="show_export_data" class="w3-modal w3-card-4">
+            <div ng-show="show_import_dataset" class="w3-modal w3-card-4">
                 <div class="w3-modal-content w3-animate-top">
-                    <header class="w3-container w3-yellow">
-                        <span ng-click="show_export_data=false" class="w3-button w3-display-topright">&times;</span>
-                        <h2>Export data</h2>
-                    </header>
+                    <form name="form_import_dataset">
+                        <header class="w3-container w3-yellow">
+                            <span ng-click="show_import_dataset=false" class="w3-button w3-display-topright">&times;</span>
+                            <h5>Import dataset</h5>
+                        </header>
 
-                    <div class="w3-container w3-padding">
-                        <h5>Select which lists to export:</h5>
-                        <ul style="columns:2;">
-                            <li ng-repeat="valigia in all_lists.concat(my_valigie)"><input type="checkbox" name="export_valigia_$index" checked> {{valigia.name}}</li>
-                        </ul>
-                    </div>
+                        <div class="w3-container w3-padding">
+                            <p>If you have a previously exported <code>.json</code> dataset, please open it in an editor and paste its contents here:</p>
+                            <textarea ng-model="JSON_import_input" style="width:100%; height:200px; resize:none; font-family:monospace; font-size:6pt"></textarea>
+                        </div>
 
-                    <footer class="w3-container w3-padding w3-right-align">
-                        <input type="button" class="w3-button w3-hover-orange w3-border w3-border-orange" value="Cancel" ng-click="show_export_data=false">
-                        <input type="button" class="w3-button w3-hover-orange w3-border w3-border-orange" value="Download" ng-click="" onclick="alert('Not yet implemented, sry :)')">
-                    </footer>
+                        <footer class="w3-container">
+                            <div class="w3-container w3-padding-small w3-right-align">
+                                <input type="button" class="w3-button w3-border w3-border-orange w3-hover-deep-orange w3-white" value="Cancel" ng-click="show_import_dataset=false">
+                                <input type="button" ng-disabled="form_import_dataset$dirty && form_import_dataset.$invalid" class="w3-button w3-hover-deep-orange w3-orange" value="Load" ng-click="loadUserDataset()">
+                            </div>
+                        </footer>
+                    </form>
                 </div>
             </div>
-
             <!-- Help dialog -->
             <div ng-show="show_help_modal" class="w3-modal w3-card-4">
                 <div class="w3-modal-content w3-animate-top w3-margin-bottom">
@@ -314,12 +315,46 @@
                 $scope.resetNewValigia = function() {
                     $scope.new_valigia_temp = {name: '', tags: [], items: []};
                 }
+
+                /* Export the dataset as a JSON file */
+                $scope.exportValigie2JSON = function() {
+                    var export_data = {'all': $scope.all_lists, 'my': $scope.my_valigie};
+
+                    var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(export_data));
+                    var dlAnchorElem = document.createElement('a');
+                    dlAnchorElem.setAttribute("href",dataStr);
+                    dlAnchorElem.setAttribute("download", "my-valigie-dataset.json");
+                    dlAnchorElem.click();
+                }
+
+                /* Load the user's JSON dataset from the modal */
+                $scope.loadUserDataset = function() {
+                    var input = $scope.JSON_import_input;
+                    var data = null;
+
+                    try {
+                        data = JSON.parse(input);
+                    } catch (e) {
+                        alert("Error: the dataset you provided is not valid JSON.");
+                        return;
+                    }
+
+                    if (!data || !data.all || !data.my) {
+                        alert("Error: the dataset you provided doeasn't contain the required fields.");
+                        return;
+                    }
+
+                    $scope.all_lists = data.all;
+                    $scope.my_valigie = data.my;
+                    alert("Dataset loaded successfully!");
+                    $scope.show_import_dataset = false;
+                }
                 
                 $scope.export_valigie_to_PDF = export_valigie_to_PDF;
         
                 /* Init */
                 $scope.show_create_valigia = false;
-                $scope.show_export_data = false;
+                $scope.show_import_dataset = false;
                 $scope.show_help_modal = false;
                 $scope.my_valigie = [];
                 $scope.all_lists = [];
