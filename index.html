@@ -22,11 +22,12 @@
         </style>
     </head>
     <body>
-        <div class="w3-container w3-yellow w3-border-bottom">
-            <h1>Valigie Maker 9000</h1>
-        </div>
-
         <div class="w3-row" ng-app="ngMain" ng-controller="ngMainCtrl">
+            
+            <div class="w3-bar w3-yellow w3-border-bottom">
+                <h2 class="w3-bar-item">Valigie Maker 9000</h2>
+                <input type="button" class="w3-bar-item w3-margin w3-button w3-border w3-pale-yellow w3-border-orange w3-hover-orange" value="Help" ng-click="show_help_modal=true">
+            </div>
 
             <!-- Left column -->
             <div class="w3-container w3-col m6 w3-rightbar">
@@ -188,8 +189,69 @@
                         <input type="button" class="w3-button w3-hover-orange w3-border w3-border-orange" value="Download" ng-click="" onclick="alert('Not yet implemented, sry :)')">
                     </footer>
                 </div>
-            </div> 
+            </div>
+
+            <!-- Help dialog -->
+            <div ng-show="show_help_modal" class="w3-modal w3-card-4">
+                <div class="w3-modal-content w3-animate-top w3-margin-bottom">
+                    <header class="w3-container w3-yellow">
+                        <span ng-click="show_help_modal=false" class="w3-button w3-display-topright">&times;</span>
+                        <h2>Help</h2>
+                    </header>
+
+                    <div class="w3-container w3-padding">
+                        <h3>What's <b>Valigie-Maker-9000?</b></h3>
+                        <p>
+                            Valigie Maker 9000 is a tool to help you create lists of items to pack in your valigia. <br />
+                            Basically the only thing you need to know is that <b>valigia</b> translates to <b>suitcase</b>. <br />
+                            Search and grab contextual sub-lists from the <b>left</b> column and add them to your valigia on the right. <br />
+                            Then, generate a nice report with all you need to pack with checkboxes and everything.
+                        </p>
+
+                        <h3>The <b>left</b> column / All valigie</h3>
+                        <p>
+                            The left column contains all the available dataset, which is composed by small contextual lists (seaside, camping, ...) which together will form a bigger list (your whole valigia). <br />
+                            Use the two search fields above to look for specific items or tags you have in mind, and then click the "Add" button to add the list to your valigia on the right. <br />
+
+                        </p>
+
+                        <h3>The <b>right</b> column / <b>Your</b> valigie</h3>
+                        <p>
+                            In this column you have even more freedom to personalize your valigia. Each list, when hovered, will show an "edit" button on the top, that will allow you to add, modify, and remove single items. At the end, click "Accept". <br />
+                            If you change your mind and don't need a list anymore, click "Remove" on the bottom. <br />
+                            The top toolbar offers five important functions:
+                            <ul>
+                                <li>
+                                    <b>Resolve duplicates</b> will remove all the duplicates from your valigia. <br />
+                                    <i>Example: if you have two lists with the same item, it will be removed from one of them.</i>
+                                </li>
+                                <li>
+                                    <b>New list</b> will allow you to create a new list from scratch. <br />
+                                    <i>Example: you usually pack some category of things not considered here</i>
+                                </li>
+                                <li>
+                                    <b>Import data</b> will allow you to import data from a previous export. <br />
+                                    <i>Example: you have a list of items you usually pack and you want to import it here</i>
+                                </li>
+                                <li>
+                                    <b>Export data</b> will allow you to export your valigie to a file to be reused later with the <b>Import</b> function. <br />
+                                    <i>Example: You have edited and created several personal lists and you don't want to rewrite them each time</i>
+                                </li>
+                                <li>
+                                    <b>Generate</b> will create a nice PDF report with your whole valigia, with two checkboxes per item: (A)ndata e (R)itorno. <br />
+                                </li>
+                            </ul>
+                        </p>
+                    </div>
+
+                    <footer class="w3-container w3-padding w3-center">
+                        <input type="button" class="w3-button w3-hover-orange w3-border w3-border-orange" value="Close" ng-click="show_help_modal=false">
+                    </footer>
+                </div>
+            </div>
+
         </div>
+    </div>
 
         <script>
             var app = angular.module('ngMain', []);
@@ -258,6 +320,7 @@
                 /* Init */
                 $scope.show_create_valigia = false;
                 $scope.show_export_data = false;
+                $scope.show_help_modal = false;
                 $scope.my_valigie = [];
                 $scope.all_lists = [];
                 $scope.resetNewValigia();
