@@ -143,7 +143,12 @@
                                 <label for="new_valigia_title">Title:</label>
                                 <input type="text" name="new_valigia_title" class="w3-input" ng-model="new_valigia_temp.name" required>
                             </h5>
-
+                            <br>
+                            <div>
+                                <label for="new_valigia_title">Tags (separated by comma):</label>
+                                <input type="text" name="new_valigia_tags" class="w3-input" ng-model="temp_tags">
+                            </div>
+                            <br>
                             <p>Items:</p>
                             <ul>
                                 <li ng-repeat="item in new_valigia_temp.items">{{item}}</li>
@@ -160,8 +165,8 @@
 
                         <footer class="w3-container w3-yellow">
                             <div class="w3-container w3-padding-small w3-right-align">
-                                <input type="button" class="w3-button w3-hover-deep-orange w3-orange" value="Cancel" ng-click="show_create_valigia=false;resetNewValigia()">
-                                <input type="button" ng-disabled="form_new_valigia.$dirty && form_new_valigia.$invalid" class="w3-button w3-hover-deep-orange w3-orange" value="Accept" ng-click="my_valigie.push(new_valigia_temp);resetNewValigia();show_create_valigia=false;">
+                                <input type="button" class="w3-button w3-hover-deep-orange w3-orange" value="Cancel" ng-click="show_create_valigia=false;temp_tags='';resetNewValigia()">
+                                <input type="button" ng-disabled="form_new_valigia.$dirty && form_new_valigia.$invalid" class="w3-button w3-hover-deep-orange w3-orange" value="Accept" ng-click="new_valigia_temp.tags=temp_tags.split(',');my_valigie.push(new_valigia_temp);resetNewValigia();show_create_valigia=false;">
                             </div>
                         </footer>
                     </form>
