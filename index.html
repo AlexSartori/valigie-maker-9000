@@ -73,7 +73,7 @@
                 <!-- Action box -->
                 <div class="w3-card w3-cell-row w3-section">
                     <div class="w3-cell w3-center w3-padding-16">
-                        <input type="button" class="w3-button w3-white w3-border w3-border-orange w3-hover-orange w3-padding-small" disabled value="Resolve duplicates">
+                        <input type="button" class="w3-button w3-white w3-border w3-border-orange w3-hover-orange w3-padding-small" ng-click="resolveDuplicates()" value="Show duplicates">
                     </div>
                     <div class="w3-cell w3-center w3-padding-16">
                         <input type="button" class="w3-button w3-white w3-border w3-border-orange w3-hover-orange w3-padding-small" ng-click="show_create_valigia=true" value="New list">
@@ -228,8 +228,8 @@
                             The top toolbar offers five important functions:
                             <ul>
                                 <li>
-                                    <b>Resolve duplicates</b> will remove all the duplicates from your valigia. <br />
-                                    <i>Example: if you have two lists with the same item, it will be removed from one of them.</i>
+                                    <b>Show duplicates</b> will find all the duplicates in your valigia. <br />
+                                    <i>Example: for every item that apepars more than once, you'll get a notice</i>
                                 </li>
                                 <li>
                                     <b>New list</b> will allow you to create a new list from scratch. <br />
@@ -252,6 +252,29 @@
 
                     <footer class="w3-container w3-padding w3-center">
                         <input type="button" class="w3-button w3-hover-orange w3-border w3-border-orange" value="Close" ng-click="show_help_modal=false">
+                    </footer>
+                </div>
+            </div>
+
+            <!-- Modal for resolving duplicates -->
+            <div ng-show="show_dups_modal" class="w3-modal w3-card-4">
+                <div class="w3-modal-content w3-animate-top w3-margin-bottom">
+                    <header class="w3-container w3-yellow">
+                        <span ng-click="show_dups_modal=false" class="w3-button w3-display-topright">&times;</span>
+                        <h2>Duplicates</h2>
+                    </header>
+
+                    <div class="w3-container w3-padding">
+                        <ul>
+                            <li ng-repeat="dup_entry in dups_list">
+                                <b>"{{dup_entry.item}}"</b>
+                                is present in the following lists: {{dup_entry.valigie}}
+                            </li>
+                        </ul>
+                    </div>
+
+                    <footer class="w3-container w3-padding w3-center">
+                        <input type="button" class="w3-button w3-hover-orange w3-border w3-border-orange" value="Close" ng-click="show_dups_modal=false">
                     </footer>
                 </div>
             </div>
@@ -355,12 +378,53 @@
                     $scope.show_import_dataset = false;
                 }
                 
+                $scope.resolveDuplicates = function() {
+                    dups_hash = {};
+
+                    for (var i = 0; i < $scope.my_valigie.length; i++) {
+                        valigia = $scope.my_valigie[i];
+
+                        for (var j = 0; j < valigia.items.length; j++) {
+                            item = valigia.items[j].toLowerCase();
+
+                            if (dups_hash[item]) {
+                                dups_hash[item].push(valigia);
+                            } else {
+                                dups_hash[item] = [valigia];
+                            }
+                        }
+                    }
+
+                    console.log(dups_hash);
+
+                    /* Only keep entries with only one value */
+                    dups_list = [];
+                    for (var item in dups_hash) {
+                        if (dups_hash[item].length > 1) {
+                            val_names = dups_hash[item].map(function(val) {return val.name;}).join(', ');
+                            dups_list.push({"item": item, "valigie": val_names});
+                        }
+                    }
+
+                    console.log(dups_list);
+
+                    if (dups_list.length > 0) {
+                        console.log("Dups found");
+                        $scope.dups_list = dups_list;
+                        $scope.show_dups_modal = true;
+                    } else {
+                        alert("No duplicate items found");
+                        $scope.dups_list = [];
+                    }
+                }
+
                 $scope.export_valigie_to_PDF = export_valigie_to_PDF;
         
                 /* Init */
                 $scope.show_create_valigia = false;
                 $scope.show_import_dataset = false;
                 $scope.show_help_modal = false;
+                $scope.show_dups_modal = false;
                 $scope.my_valigie = [];
                 $scope.all_lists = [];
                 $scope.resetNewValigia();
