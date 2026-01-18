@@ -58,11 +58,13 @@
             "Sapone mani",
             "Shampoo",
             "Bagnoschiuma",
+            "Balsamo",
             "Spazzola/Pettine",
             "Chewingum",
             "Kit manicure",
             "Fazzoletti",
-            "Phon da viaggio"
+            "Phon da viaggio",
+            "Amuchina / Gel mani"
         ]
     },
     {
@@ -74,7 +76,10 @@
             "Cerotti",
             "Termometro",
             "Sali minerali",
-            "Pastiglie gola/tosse"
+            "Pastiglie gola/tosse",
+            "Fermenti lattici",
+            "Antistaminico",
+            "Antiacido / antinausea"
         ]
     },
     {
@@ -83,13 +88,16 @@
         "items": [
             "Cellulare",
             "Caricatore cellulare",
+            "Smartwatch",
+            "Caricatore smartwatch",
             "Laptop",
             "Caricatore laptop",
             "Cuffie",
             "Libri",
-            "MAGNEX",
-            "Carica MAGNEX",
-            "Kindle"
+            "Kindle",
+            "Powerbank",
+            "Quaderno / Agenda",
+            "Penna"
         ]
     },
     {
@@ -98,6 +106,7 @@
         "items": [
             "Portafoglio",
             "Carta d'identità",
+            "Passaporto",
             "Patente",
             "Tessera sanitaria",
             "Carta di credito",
@@ -106,7 +115,8 @@
             "Chiavi auto",
             "Orologio",
             "Occhiali da vista",
-            "Ombrello da viaggio"
+            "Ombrello da viaggio",
+            "Addattatori di corrente"
         ]
     },
     {
@@ -119,12 +129,14 @@
             "Cavo USB Nikon",
             "Caricatore Nikon",
             "Filtri Nikon",
-            "Cavalletto fotocamera",
-            "actioncam",
+            "Cavalletto/monopiede fotocamera",
+            "Actioncam",
             "Custodia actioncam",
             "Accessori actioncam",
             "Cavo USB actioncam",
-            "Lettore SD"
+            "Lettore SD / Dongle USB",
+            "Digicam",
+            "Carica digicam"
         ]
     },
     {
@@ -145,7 +157,8 @@
             "Ciabatte",
             "Pigiama",
             "K-Way",
-            "Cappotto"
+            "Cappotto",
+            "Federa per panni sporchi"
         ]
     },
     {
